@@ -1,0 +1,108 @@
+body{
+	font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+	font-size:11px;
+	text-align:center;
+	color:#FFCC00;
+	width: 300px;
+	padding: 0;
+	margin: 0;
+	margin-left: 5px;
+	background: #161616 url(/files/images/s/back.png) no-repeat;
+	}
+
+a{text-decoration:none; outline:none;}
+a:link,
+a:visited{font-weight:bold; color:#FA0;}
+a:hover{font-weight:bold; color:#fff;}
+
+
+#topc{
+	height:35px;
+	width: 265px;
+}
+
+#dots{font-weight:bold; color:#FA0;}
+
+#saved{
+	height:180px;
+	width: 280px;
+	overflow: auto;
+	background-image:url(/files/images/s/viejo.png);
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+#saved p{
+	margin-left:10px;
+	margin-right:10px;
+	padding-bottom:5px;
+	padding-left: 10px;
+	padding-top:5px;
+	border:1px solid #444;
+	text-align: left;
+	color:#E5E5E5;
+	background-image:url(/files/images/s/blackOverlay.png);
+	}
+
+#saved .fecha_hora{
+	color:#FA0;
+	float: right;
+	padding-right: 10px;
+	padding-top: 4px;
+	}
+
+#comment-form{
+	width: 270px;
+	margin-left: 8px;
+	font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+	}
+#comment-form input{
+	width:95%;
+	padding:3px;
+	background-color:#000;
+	border:1px solid #444;
+	color:#959595;
+	margin-bottom: 10px;
+	font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	height: 18px;
+	}
+
+#comment-form textarea{
+	width:95%;
+	height: 45px;
+	padding:3px;
+	background-color:#000;
+	border:1px solid #444;
+	color:#959595;
+	margin-bottom: 10px;
+	font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	}
+
+#comment-form #id_poster{
+    width: 190px;
+}
+
+#comment-form #submit{
+    font-family:Trebuchet MS, Arial, Helvetica, sans-serif;
+	width:60px;
+	height: 26px;
+	float:right;
+	margin-right: 4px;
+	font-weight:bold;
+	border:1px solid #444;
+	cursor:pointer;
+	font-size:11px;
+	color:#FA0;
+	background-color: #333;
+	}
+
+#comment-form #submit:hover{
+    color: #FFF;
+}
+
+#tracker{
+    padding: 0; margin: 0; padding-top: 6px; font-size: 15px; color: #959595; font-weight: bold; text-align: left; padding-left: 10px;
+}
+
