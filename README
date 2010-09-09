@@ -1,1 +1,3 @@
 Apps para www.portalviejano.com
+
+El directorio images debe ser un symbolic link a la carpeta de tus imagenes o bien un directorio vacio
