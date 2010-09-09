@@ -14,9 +14,9 @@ MANAGERS = ADMINS
 PROJECT_DIR = os.path.dirname(__file__)
 
 DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'rpnnicac_apps' #PROJECT_DIR + '/shout-base.db'  # Or path to database file if using sqlite3.
-DATABASE_USER = 'rpnnicac_appuser'             # Not used with sqlite3.
-DATABASE_PASSWORD = 'appsportalviejano'         # Not used with sqlite3.
+DATABASE_NAME = 'db' #Or path to database file if using sqlite3.
+DATABASE_USER = 'userdb'             # Not used with sqlite3.
+DATABASE_PASSWORD = 'pass'         # Not used with sqlite3.
 DATABASE_HOST = 'localhost'             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = '3306'             # Set to empty string for default. Not used with sqlite3.
 
