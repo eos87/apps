@@ -1,0 +1,7 @@
+images/
+*.pyc
+*.py~
+*.html~
+*.css~
+*.js~
+*.sql
