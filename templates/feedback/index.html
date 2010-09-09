@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block extratitle %} FeedBack{% endblock %}
+{% block css %}
+	<link rel="stylesheet" type="text/css" href="/files/css/feedback.css" />
+{% endblock %}
+{% block javascript %}
+	<script type="text/javascript" src="/files/js/feedback.js"></script>
+	<script type="text/javascript">document.domain = 'portalviejano.com';</script>
+{% endblock %}
+
+{% block body %}
+<div id="contenido">
+<br />
+<form name="sugF" id="comment-form" action="." method="POST">
+  <table>
+  	{{ form.as_table }}
+  </table>
+  Los campos con (*) son requeridos<input id="submit" type="submit" value="Enviar">
+</form>
+</div>
+{% endblock %}
+

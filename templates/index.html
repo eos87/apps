@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block extratitle %} ShoutBox{% endblock %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="/files/css/form.css" />
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="/files/js/textcounter.js"></script>
+<script type="text/javascript" src="/files/js/script.min.js"></script>
+<script type="text/javascript">
+    // If the main document is located at www.example.com
+    // If the IFrame'd document is located at subdomain.example.com
+    // You can do this is both documents! ;-)
+    //document.domain = 'portalviejano.com';
+</script>
+{% endblock %}
+
+{% block body %}
+<div id="topc">
+    <!-- Seccion de imagen top del shoutbox-->
+    <p id="tracker">
+    </p>
+</div>
+<div id="saved">
+    {% for comentarios in coments %}
+    <p>
+        <a href="http://portalviejano.com/">{{ comentarios.poster|title }}</a><span id="dots"> :</span><br>{{comentarios.coment}}<br>
+        <span class="fecha_hora"><small>{{comentarios.fecha}}&nbsp;&nbsp;{{comentarios.hora}}</small></span>
+    </p>
+    {% endfor %}
+</div>
+<br>
+<form name="postF" id="comment-form" action="." method="POST">
+    {{ form.coment }}<br>
+    {{ form.poster }}
+    <input id="submit" type="submit" value="Enviar">
+</form>
+<script type="text/javascript">
+    $("#id_coment").apTextCounter({
+        maxCharacters: 140,
+        direction: "down",
+        tracker: "#tracker",
+        trackerTemplate: "%s"
+    });
+</script>
+{% endblock %}
+

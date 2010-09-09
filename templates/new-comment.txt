@@ -1,0 +1,12 @@
+Hola Administradores Portal Viejano.
+
+Dejaron un nuevo comentario en la foto:
+
+No. => {{index}}
+
+album => {{foto.album.nombre}}
+
+http://apps.portalviejano.com/album/{{foto.album.slug}}/
+
+Saludos y a buscar quien los muela
+

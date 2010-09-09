@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="/media/css/base.css">
+        <script type="text/javascript" src="/files/js/jquery.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                var bandera = false;
+                $('#submit1').click(function(){
+                    var nombre_album = $('#id_nombre').val();
+                    if(nombre_album != ''){
+                        $.post("/crear/",	{
+                            new_album: nombre_album
+                        },
+                        function(data) {
+                            if (data != '<ul class="errornote"><li>Ese album ya existe, utilice otro nombre!</li></ul>') {
+                                $('#exito').html(data);
+                                $('#id_album').val(nombre_album);
+                                $('#form2').show();
+                                $('#form1').hide();
+                            }
+                            else{
+                                $('#exito').html(data);
+                            }
+                        });
+                    }
+                    return false;
+                });
+                $('#submit2').click(function(){
+                    var nombre_directorio = $('#id_path').val();
+                    var album = $('#id_album').val()
+                    if(nombre_directorio != ''){
+                        $.post("/crear/",	{
+                            path: nombre_directorio,
+                            id_album: album,
+                            new_album: ''
+                        },
+                        function(data) {
+                            if (data != '<ul class="errornote"><li>No existe el directorio</li></ul>') {
+                                window.location = '../album/'+data;
+                            }
+                            else{
+                                $('#exito').html(data);
+                                $('#form1').hide();
+                                $('#form2').show();
+                            }
+                        });
+                    }
+                    return false;
+                });
+            });
+        </script>
+        <style type="text/css">
+            #form2{
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="exito"><br></div>
+        <div id="form1">
+            <form action="." method="POST">
+                <label for="id_nombre">Nombre del Album: </label>
+                <input id="id_nombre" type="text" name="nombre" maxlength="200">
+                <input id="submit1" type="submit" value="Crear" name="submit">
+            </form>
+        </div>
+        <div id="form2">
+            <form action="." method="POST">
+                <label for="id_path">Ruta: </label>
+                <input id="id_path" type="text" name="id_path" >
+                <input id="id_album" type="hidden" name="id_album" value="">
+                <input id="submit2" type="submit" value="Subir" name="_save">
+            </form>
+        </div>
+    </body>
+</html>
+

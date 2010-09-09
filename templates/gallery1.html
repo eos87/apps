@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>Galleria Demo 1</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta http-equiv="imagetoolbar" content="false">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+        <link type="text/css" href="/files/css/galleria.css" rel="stylesheet" media="screen">
+        <script type="text/javascript" src="/files/js/jquery.js"></script>
+        <script type="text/javascript" src="/files/js/jquery.galleria.js"></script>
+        <script type="text/javascript">
+
+            $(document).ready(function(){
+
+                /*showNext($('#list'));
+                $('#next').click(function(e) {
+                    e.preventDefault();
+                    showNext($('#list'));
+                });
+
+                $('#prev').click(function(e) {
+                    e.preventDefault();
+                    showPrevious($('#list'));
+                });
+                */
+
+                $('.gallery_demo_unstyled').addClass('gallery_demo'); // adds new class name to maintain degradability
+
+                $('ul.gallery_demo').galleria({
+                    history   : true, // activates the history object for bookmarking, back-button etc.
+                    clickNext : true, // helper for making the image clickable
+                    insert    : '#main_image', // the containing selector for our main image
+                    onImage   : function(image,caption,thumb) { // let's add some image effects for demonstration purposes
+
+
+                        // fade in the image & caption
+                        image.css('display','none').fadeIn(1000);
+                        caption.css('display','none').fadeIn(1000);
+
+                        // fetch the thumbnail container
+                        var _li = thumb.parents('li');
+
+                        // fade out inactive thumbnail
+                        _li.siblings().children('img.selected').fadeTo(500,0.3);
+
+                        // fade in active thumbnail
+                        thumb.fadeTo('fast',1).addClass('selected');
+
+                        // add a title for the clickable image
+                        image.attr('title','Next image >>');
+                        //alert(image.attr('src'));
+
+                        if($('li').index($('.active'))==from){
+                            showNext($('#list'));
+                        }
+                        if(($('li').index($('.active')))==0){
+                            from=0;
+                            showNext($('#list'));
+                        }
+
+                    },
+                    onThumb : function(thumb) { // thumbnail effects goes here
+
+                        // fetch the thumbnail container
+                        var _li = thumb.parents('li');
+
+                        // if thumbnail is active, fade all the way.
+                        var _fadeTo = _li.is('.active') ? '1' : '0.3';
+
+                        // fade in the thumbnail when finnished loading
+                        thumb.css({display:'none',opacity:_fadeTo}).fadeIn(1500);
+
+                        // hover effects
+                        thumb.hover(
+                        function() { thumb.fadeTo('fast',1); },
+                        function() { _li.not('.active').children('img').fadeTo('fast',0.3); } // don't fade out if the parent is active
+                    )
+                    }
+                });
+            });
+
+            var from = 0, step = 9;
+
+            function showNext(list) {
+                if(from >= $('#list').children().length){}else{
+                    list
+                    .find('li').hide().end()
+                    .find('li:lt(' + (from + step) + '):not(li:lt(' + from + '))')
+                    .show();
+                    from += step;
+                    //alert(from);
+                }
+            }
+
+            function showPrevious(list) {
+                if(from <= step){}else{
+                    from -= step;
+                    list
+                    .find('li').hide().end()
+                    .find('li:lt(' + from + '):not(li:lt(' + (from - step) + '))')
+                    .show();
+                    //alert(from);
+                }
+            }
+
+            function ajustar(){
+                document.getElementById('tuma').height=document.body.scrollHeight;
+            }
+        </script>
+        <style type="text/css">
+
+            /* BEGIN DEMO STYLE */
+            *{margin:0;padding:0}
+            body{padding:20px;background:white;text-align:center;background:black;color:#bba;font:80%/140% georgia,serif;}
+            h1,h2{font:bold 80% 'helvetica neue',sans-serif;letter-spacing:3px;text-transform:uppercase;}
+            a{color:#348;text-decoration:none;outline:none;}
+            a:hover{color:#67a;}
+            .caption{font-style:italic;color:#887;}
+            .demo{position:relative;margin-top:2em;}
+            .gallery_demo{width:702px;margin:0 auto;}
+            .gallery_demo li{width:68px;height:50px;border:3px double #111;margin: 0 2px;background:#000;}
+            .gallery_demo li div{left:240px}
+            .gallery_demo li div .caption{font:italic 0.7em/1.4 georgia,serif;}
+            #main_image{margin:0 auto 60px auto;height:auto;width:700px;background:black;}
+            #main_image img{margin-bottom:10px;}
+            .nav{padding-top:15px;clear:both;font:80% 'helvetica neue',sans-serif;letter-spacing:3px;text-transform:uppercase;}
+            .info{text-align:left;width:700px;margin:30px auto;border-top:1px dotted #221;padding-top:30px;}
+            .info p{margin-top:1.6em;}
+            ul{
+                display: none;
+            }
+
+        </style>
+
+    </head>
+    <body>
+        <h1>Galleria Demo uno</h1>
+        <p class="nav"><a href="#" onclick="$.galleria.prev(); return false;">&laquo; previous</a> | <a href="#" onclick="$.galleria.next(); return false;">next &raquo;</a></p>
+        <div class="demo">
+            <div id="main_image"></div>
+            <ul class="gallery_demo_unstyled" id="list">
+                <li class="active"><img src="/files/img/flowing-rock.jpg" alt="Flowing Rock" title="Flowing Rock Caption"></li>
+                <!--><li><img src="/files/img/stones.jpg" alt="Stones" title="Stones - from Apple images"></li>
+                <li><img src="/files/img/grass-blades.jpg" alt="Grass Blades" title="Apple nature desktop images"></li>
+                <li><img src="/files/img/ladybug.jpg" alt="Ladybug" title="Ut rutrum, lectus eu pulvinar elementum, lacus urna vestibulum ipsum"></li>
+                <li><img src="/files/img/lightning.jpg" alt="Lightning" title="Black &amp; White"></li>
+                <li><img src="/files/img/lotus.jpg" alt="Lotus" title="Fusce quam mi, sagittis nec, adipiscing at, sodales quis"></li>
+                <li><img src="/files/img/mojave.jpg" alt="Mojave" title="Suspendisse volutpat posuere dui. Suspendisse sit amet lorem et risus faucibus pellentesque."></li>
+                <li><img src="/files/img/pier.jpg" alt="Pier" title="Proin erat nisi"></li>
+                <li><img src="/files/img/sea-mist.jpg" alt="Sea Mist" title="Caption text from title"></li>
+                <li><img src="/files/img/1.jpg" alt="Flowing Rock" title="Flowing Rock Caption"></li>
+                <li><img src="/files/img/2.jpg" alt="Stones" title="Stones - from Apple images"></li>
+                <li><img src="/files/img/3.jpg" alt="Flowing Rock" title="Flowing Rock Caption"></li>
+                <li><img src="/files/img/4.jpg" alt="Stones" title="Stones - from Apple images"></li>
+                <li><img src="/files/img/5.jpg" alt="Flowing Rock" title="Flowing Rock Caption"></li>
+                <li><img src="/files/img/6.jpg" alt="Stones" title="Stones - from Apple images"></li>
+                <li><img src="/files/img/7.jpg" alt="Flowing Rock" title="Flowing Rock Caption"></li>
+                <li><img src="/files/img/8.jpg" alt="Stones" title="Stones - from Apple images"></li>
+                <li><img src="/files/img/9.jpg" alt="Flowing Rock" title="Flowing Rock Caption"></li>
+                <li><img src="/files/img/10.jpg" alt="Stones" title="Stones - from Apple images"></li>
+                <li><img src="/files/img/11.jpg" alt="Flowing Rock" title="Flowing Rock Caption"></li>
+                <li><img src="/files/img/12.jpg" alt="Stones" title="Stones - from Apple images"></li>
+                <li><img src="/files/img/13.jpg" alt="Stones" title="Stones - from Apple images"></li>-->
+                {% for i in images %}
+                <li><img src="/{{i.url}}" alt="{{i.nombre}}" title="{{i.nombre}}"></li>
+                {% endfor %}
+
+            </ul>
+            <!--<p class="nav"><a href="#" onclick="$.galleria.prev(); return false;">&laquo; previous</a> | <a href="#" onclick="$.galleria.next(); return false;">next &raquo;</a></p>
+            <p class="nav"><a id="prev" href="#">Anterior</a> || <a id="next" href="#">Siguiente</a></p>-->
+        </div>
+        <div class="info">
+            <!--<iframe src="http://portalviejano.com" scrolling="no" frameborder="0" id="tuma"></iframe>-->
+            <h2>Information</h2>
+            <p>This demonstration shows you aome more advanced effects you can accomplish with the Galleria plugin. The history object is also active, so feel free to try the back button in your browser and bookmark a page. The next and previous links are simple to create since the galleria object has two public functions for traversing the images in your list.</p>
+            <p>This gallery was created from a simple unordered list with images - thumbnails and functionality is all in the Galleria plugin. Viewing this page without javascript or CSS enabled with degrade it into a list of full-size images.</p>
+            <p>Visit the galleria project: <a href="http://galleria.googlecode.com">http://galleria.googlecode.com</a></p>
+            <p class="footer"><a href="http://monc.se/galleria">Galleria home page</a> | <a href="http://monc.se">Made by monc</a></p>
+        </div>
+    </body>
+</html>
+

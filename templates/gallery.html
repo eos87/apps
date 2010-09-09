@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <title>Galerias Portal Viejano | {{album}}</title>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="/files/js/gallery.js"></script>
+        <script type="text/javascript">document.domain = 'portalviejano.com';</script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                //$('.form').slideToggle();
+                $('#gal').galeria({
+                    container   : '#main',
+                    clickable   : true,
+                    onImage     : function(id){
+                        $('#init').text($('#'+id).parents('li').index()+1);
+                        $('#end').text($('#'+id).parents('ul').children().length);
+                        $("#salida").html('<center><img src="http://portalviejano.com/images/loader.gif"></center>');
+                        $.post("/getcomet/",{
+                            id: id,
+                            index: 'no'
+                        },function(data){
+                            $("#salida").html(data);
+                            parent.document.getElementById(window.name).height = document.body.scrollHeight+200;
+                        });
+                    }
+                });
+                $('#header').click(function(){
+                    if($(this).html() == '&nbsp;&nbsp;Click aqui para comentar...'){
+                        $(this).html('&nbsp;&nbsp;Publica tu comentario');
+                    }else{
+                        $(this).html('&nbsp;&nbsp;Click aqui para comentar...');
+                    }
+                    $('.form').slideToggle();
+                });
+
+                $('#submit').click(function(){
+                    if(($('#id_comentario').val() != '') && ($('#id_nombre').val() != '')){
+                        var comentario = $('#id_comentario').val();
+                        var nombre = $('#id_nombre').val();
+                        var index = $('#'+$.galeria.current).parent().index()+1;
+                        $.post("/coment/",	{
+                            nombre: nombre,
+                            comentario: comentario,
+                            id: $.galeria.current,
+                            index: index
+                        },
+                        function(data) {
+                            parent.document.getElementById(window.name).height = document.body.scrollHeight+200;
+                            if (data != 'ERROR') {
+                                $('#form1')[0].reset();
+                                var item = '<div class="content"><p class="left"><img src="/files/images/face.jpg" alt="avatar"><br><span>{{coment.usuario}}';
+                                item += data.usuario;
+                                item += '</span><br>Aprox. 1 min';
+                                item += '</p><p class="center">';
+                                item += data.comentario;
+                                item += '</p></div>';
+                                $("#salida").append(item);
+                            }else{
+
+                            }
+                        }, "json");
+                    }
+                    return false;
+                });
+            });
+        </script>
+        <style type="text/css">
+            body{font-family: "Trebuchet MS", sans-serif;}
+            #nav{color: #959595; margin-bottom: 10px; margin-top: 10px; width: 600px; padding-left: 10px;}
+            #nav a{color: #069;text-decoration: none;font-size: 13px;outline: none;}
+            #nav a:hover{color:#E9C325;}
+            #nav .links{float: right;margin-top: 10px;}
+            #nav .links a{padding: 5px; padding-top: 3px;border-top: 1px solid #E9C325;}
+            #main{cursor: pointer;width:610px;}
+            #main img{border: 1px solid #363131;padding: 3px;background-color:#111;}
+            ul#gal{display: none;}
+            #este{color:#fff}
+            #comments{background: url('/files/images/bg.jpg') no-repeat center; width: 605px; margin-top: 20px; border: 1px solid #000;}
+            #comments .header{cursor: pointer; color: #000; background-color: #403B3E; height: 30px; width: 605px; line-height: 30px; color: #fff; font-size: 14px;}
+            .form{display: none;}
+            .form textarea{width: 565px; margin-top: 10px; background-color: #000; margin-left: 15px; color: #fff; padding: 6px; height: 80px; opacity: 0.7; border: 2px solid #000; font-family: "Trebuchet MS", sans-serif; font-size: 14px;}
+            .form input{margin-top: 10px; margin-bottom: 10px; background-color: #000; opacity: 0.7; border: 2px solid #000; padding-left: 6px; color: #fff; font-size: 13px;}
+            .form label{margin-left: 15px; color: #fff; font-size: 13px;}
+            .form .submit{opacity: 1; color:#fff;}
+            .form .submit:hover{text-shadow: 0.1em 0.1em 0.1em #E9C325;}
+            #salida{margin-top:10px; width: 612px;}
+            #salida .content{height: 85px; height: auto;
+                             margin-top: 20px;
+                             width: 612px;
+            }
+            #salida .content .left{display: inline-block; padding: 0; margin: 0; font-size: 10px; width: 80px; color: #fff; margin-right: 20px;}
+            #salida .content .left span{font-size: 12px; color: #069;}
+            #salida .content .left span.aja{font-size: 10px; color: #333;}
+            #salida .content .left img{border: 2px solid #595959; background-color: #403B3E;}
+            #salida .content .center{vertical-align: top;height: 85px; height: auto;
+                                     padding: 0; margin: 0;
+                                     -moz-border-radius:3px;
+                                     -moz-border-radius:3px;
+                                     -khtml-border-radius:3px;
+                                     -webkit-border-radius:3px;
+                                     display: inline-block;
+                                     background-color: #403B3E;
+                                     font-size: 12px;
+                                     padding: 15px 15px 20px 15px;
+                                     margin-right: 5px;
+                                     width: 470px;
+                                     border: 1px solid #595959;
+                                     color: #fff;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="nav">
+            {{album}}
+            <span style="color:#069;">[</span><span id="init"></span><span style="color:#069;">/</span><span id="end"></span><span style="color:#069;">]</span>
+            <div class="links">
+                <span style="color:#E9C325;">|</span><a href="#" class="left" onclick="$.galeria.prev(); return false;">&laquo;Atras</a><span style="color:#E9C325;">|</span><a href="#" class="right" onclick="$.galeria.next(); return false;">Siguiente&raquo;</a><span style="color:#E9C325;">|</span>
+            </div>
+        </div>
+        <div id="main"></div>
+        <ul id="gal">
+            {% for i in images %}
+            <li><img id="{{i.id}}" src="/{{i.url}}" alt="{{i.nombre}}" title="{{i.nombre}}"></li>
+            {% endfor %}
+            {% comment %}
+            {% endcomment %}
+        </ul>
+        <div id="comments">
+            <div class="header" id="header">&nbsp;&nbsp;Click aqui para comentar...</div>
+            <div class="form">
+                <form action="." method="POST" id="form1">
+                    <textarea cols="40" rows="10" id="id_comentario" name="id_comentario"></textarea>
+                    <label for="id_nombre">Nombre: </label>
+                    <input id="id_nombre" type="text" name="id_nombre" >
+                    <input type="submit" value="Enviar" class="submit" id="submit">
+                </form>
+            </div>
+        </div>
+        <div id="salida">
+        </div>
+    </body>
+</html>
+

@@ -1,0 +1,9 @@
+Hola Administradores Portal Viejano.
+
+Han enviado una nueva Sugerencia hoy {{fecha_sugerencia}}.
+
+{{nombre}} dijo: {{mensaje}} 
+
+Su correo es: {{email_poster}}
+
+

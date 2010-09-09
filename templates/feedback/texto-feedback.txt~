@@ -1,0 +1,9 @@
+Hola Helmy Guevon y Robbin Cochon
+
+Han enviado una nueva Sugerencia hoy {{fecha_sugerencia}}.
+
+-----------------------------------
+Nombre: 	{{nombre}}
+Correo: 	{{email_poster}}
+Sugerencia: {{mensaje}}
+

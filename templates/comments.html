@@ -1,0 +1,11 @@
+{% for coment in comentarios %}
+<div class="content">
+    <p class="left">
+        <img src="/files/images/face2.jpg" alt="avatar"><br>
+        <span>{{coment.usuario}}</span><br>
+        <span class="aja">{{coment.fecha|date:"M d Y"}}</span>
+    </p>
+    <p class="center">{{coment.comentario}}</p>
+</div>
+{% endfor %}
+
